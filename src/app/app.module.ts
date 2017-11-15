@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // < Material
 
@@ -12,8 +12,11 @@ import { HomeComponent } from './home/home.component';
 import { MatToolbarModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgmCoreModule } from '@agm/core';
+import { HomeModule } from './home/home.module';
+
 
 
 const appRoutes: Routes = [
@@ -32,8 +35,8 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent,
         PageNotFoundComponent,
-        HomeComponent,
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -41,13 +44,15 @@ const appRoutes: Routes = [
         MatToolbarModule,
         MatButtonModule,
         MatCardModule,
+        MatInputModule,
         FlexLayoutModule,
+        HomeModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCS4pfD5doD_DqpMJSjncypHP2c4ramEX8'
         }),
         RouterModule.forRoot(
             appRoutes,
-            {enableTracing: true} // <-- debugging purposes only
+            {enableTracing: false} // <-- debugging purposes only
         )
     ],
     providers: [],
