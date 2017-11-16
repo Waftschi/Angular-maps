@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatInputModule, MatProgressSpinnerModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './api.service';
 
 @NgModule({
     imports: [
@@ -12,8 +14,11 @@ import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/materia
         FlexLayoutModule,
         MatCardModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        HttpClientModule
     ],
+    providers: [ApiService],
     declarations: [MapComponent]
 })
 export class MapModule {

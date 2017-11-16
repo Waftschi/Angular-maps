@@ -9,14 +9,13 @@ import { MapComponent } from './map/map/map.component';
 import { MapModule } from './map/map.module';
 import { HomeComponent } from './home/home.component';
 
-import { MatToolbarModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatToolbarModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgmCoreModule } from '@agm/core';
 import { HomeModule } from './home/home.module';
-
 
 
 const appRoutes: Routes = [
@@ -43,11 +42,13 @@ const appRoutes: Routes = [
         MapModule,
         MatToolbarModule,
         MatButtonModule,
+        // MatProgressSpinnerModule,
         MatCardModule,
         MatInputModule,
         FlexLayoutModule,
         HomeModule,
         AgmCoreModule.forRoot({
+            libraries: ['places'], // Import for the places library
             apiKey: 'AIzaSyCS4pfD5doD_DqpMJSjncypHP2c4ramEX8'
         }),
         RouterModule.forRoot(

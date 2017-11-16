@@ -1,38 +1,34 @@
 <div fxLayout="row">
-
-
+    <div fxFlex>
+        <mat-card>
+            <mat-input-container style="min-width: 400px">
+                <input matInput placeholder="Address" #search>
+                <!--<mat-hint>Errors appear instantly!</mat-hint>-->
+                <!--<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">-->
+                <!--Please enter a valid email address-->
+                <!--</mat-error>-->
+                <!--<mat-error *ngIf="emailFormControl.hasError('required')">-->
+                <!--Email is <strong>required</strong>-->
+                <!--</mat-error>-->
+            </mat-input-container>
+            <button mat-button (click)="setCurrentPosition()" *ngIf="!showSpinner"><i
+                    class="material-icons">my_location</i></button>
+            <button mat-button *ngIf="showSpinner">
+                <mat-spinner [diameter]="20" [strokeWidth]="3"></mat-spinner>
+            </button>
+            <button mat-button (click)="searchApi()">Suchen</button>
+        </mat-card>
+    </div>
 </div>
+<div fxLayout="row"><p></p></div>
 <div fxLayout="row">
     <div fxFlex="30">
-        <div>
-            <mat-card>
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Address">
-                    <!--<mat-hint>Errors appear instantly!</mat-hint>-->
-                    <!--<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">-->
-                    <!--Please enter a valid email address-->
-                    <!--</mat-error>-->
-                    <!--<mat-error *ngIf="emailFormControl.hasError('required')">-->
-                    <!--Email is <strong>required</strong>-->
-                    <!--</mat-error>-->
-                </mat-form-field>
-
-                <button mat-button (click)="setCurrentPosition()">Click me!</button>
-            </mat-card>
-        </div>
-        <div>
-            <mat-card>Simple card 1</mat-card>
-        </div>
-        <div>
-            <mat-card>Simple card 2</mat-card>
-        </div>
-        <div>
-            <mat-card>Simple card 3</mat-card>
-        </div>
+        <mat-card *ngFor="let point of points | slice:0:10;  let i=index">{{point.name}}</mat-card>
     </div>
     <div fxFlex="70">
-        <agm-map [latitude]="latitude" [longitude]="longitude">
-            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (centerChange)="mapCenterChanged($event)">
+            <agm-marker *ngFor="let point of points" [latitude]="point.latitude" [longitude]="point.longitude"></agm-marker>
+            <!--<agm-marker [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>-->
         </agm-map>
     </div>
 </div>
