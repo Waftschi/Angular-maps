@@ -1,0 +1,2 @@
+<mat-card *ngFor="let point of points | slice:start :end;  let i=index">{{point.name}}</mat-card>
+<button mat-button (click)="back()">Back</button> {{end / 10}}<button mat-button (click)="next()">Next</button>
