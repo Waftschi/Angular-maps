@@ -9,14 +9,13 @@ import { MapComponent } from './map/map/map.component';
 import { MapModule } from './map/map.module';
 import { HomeComponent } from './home/home.component';
 
-import { MatProgressSpinnerModule, MatToolbarModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgmCoreModule } from '@agm/core';
 import { HomeModule } from './home/home.module';
-
 
 const appRoutes: Routes = [
     {path: 'map', component: MapComponent},
@@ -42,7 +41,6 @@ const appRoutes: Routes = [
         MapModule,
         MatToolbarModule,
         MatButtonModule,
-        // MatProgressSpinnerModule,
         MatCardModule,
         MatInputModule,
         FlexLayoutModule,

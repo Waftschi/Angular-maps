@@ -1,13 +1,12 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MapsAPILoader } from '@agm/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {} from 'googlemaps';
-import { ApiService } from '../api.service';
+import { ApiService } from '../api/api.service';
+import { GoogleService } from '../card/google.service';
 
 
 export interface PointsData {
     data: any[];
 }
-
 
 @Component({
     selector: 'app-map',
@@ -15,55 +14,35 @@ export interface PointsData {
     styleUrls: ['./map.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class MapComponent implements OnInit {
-    points: any;
+export class MapComponent implements OnInit, AfterViewInit {
+    latitude = 48.124392799999995;
+    longitude = 11.606305399999997;
+    points: any[] = [];
     showSpinner: boolean;
-    zoom = 5;
-    longitude = 7.809007;
-    latitude = 51.678418;
-    // lat = 51.678418;
-    // lng = 7.809007;
+    currPos: any;
+    zoom = 12;
 
     @ViewChild('search')
     public searchElementRef: ElementRef;
 
-    marker = {
-        latitude: 48.12986029999999,
-        longitude: 11.605407900000001,
-    };
 
-    constructor(private mapsAPILoader: MapsAPILoader,
-                private ngZone: NgZone,
-                private apiService: ApiService) {
+    constructor(private apiService: ApiService,
+                private cardService: GoogleService) {
+
     }
-
 
     ngOnInit() {
-        // this.setCurrentPosition();
-        this.mapsAPILoader.load().then(() => {
-            const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-                types: ['address']
-            });
-            autocomplete.addListener('place_changed', () => {
-                this.ngZone.run(() => { // Why ...
-                    // get the place result
-                    const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-                    // verify result
-                    if (place.geometry === undefined || place.geometry === null) {
-                        return;
-                    }
-
-                    // set latitude, longitude and zoom
-                    this.latitude = place.geometry.location.lat();
-                    this.longitude = place.geometry.location.lng();
-                    this.zoom = 12;
-                });
-            });
+        // this.pointsElementRef
+        this.cardService.init(this.searchElementRef).then((position: any) => {
+            this.showSpinner = false;
+            this.latitude = position.latitude;
+            this.longitude = position.longitude;
+            this.zoom = position.zoom;
         });
-
     }
 
+    ngAfterViewInit() {
+    }
 
     searchApi() {
         this.showSpinner = true;
@@ -73,23 +52,26 @@ export class MapComponent implements OnInit {
         });
     }
 
+
     mapCenterChanged($event: Event) {
         console.dir($event);
         this.showSpinner = false;
     }
 
+
+    getWidth() {
+        return this.points.length > 0 ? 70 : 100;
+    }
+
     setCurrentPosition() {
         this.showSpinner = true;
-        return new Promise(resolve => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.latitude = position.coords.latitude;
-                    this.longitude = position.coords.longitude;
-                    this.zoom = 12;
 
-                    resolve(true);
-                });
-            }
+        this.cardService.setCurrentPosition().then((position: any) => {
+            this.showSpinner = false;
+            this.latitude = position.latitude;
+            this.longitude = position.longitude;
+            this.zoom = position.zoom;
+            this.currPos = position;
         });
     }
 }

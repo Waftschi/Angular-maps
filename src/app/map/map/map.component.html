@@ -3,13 +3,6 @@
         <mat-card>
             <mat-input-container style="min-width: 400px">
                 <input matInput placeholder="Address" #search>
-                <!--<mat-hint>Errors appear instantly!</mat-hint>-->
-                <!--<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">-->
-                <!--Please enter a valid email address-->
-                <!--</mat-error>-->
-                <!--<mat-error *ngIf="emailFormControl.hasError('required')">-->
-                <!--Email is <strong>required</strong>-->
-                <!--</mat-error>-->
             </mat-input-container>
             <button mat-button (click)="setCurrentPosition()" *ngIf="!showSpinner"><i
                     class="material-icons">my_location</i></button>
@@ -20,15 +13,16 @@
         </mat-card>
     </div>
 </div>
-<div fxLayout="row"><p></p></div>
 <div fxLayout="row">
-    <div fxFlex="30">
-        <mat-card *ngFor="let point of points | slice:0:10;  let i=index">{{point.name}}</mat-card>
+
+    <div fxFlex="30" *ngIf="points.length>0">
+        <app-search-result-list [points]="points"></app-search-result-list>
     </div>
-    <div fxFlex="70">
+
+    <div [fxFlex]="getWidth()">
         <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (centerChange)="mapCenterChanged($event)">
+            <!--<agm-marker *ngIf="currPos.latitude!==undefined" [latitude]="currPos.latitude" [longitude]="currPos.longitude"></agm-marker>-->
             <agm-marker *ngFor="let point of points" [latitude]="point.latitude" [longitude]="point.longitude"></agm-marker>
-            <!--<agm-marker [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>-->
         </agm-map>
     </div>
 </div>

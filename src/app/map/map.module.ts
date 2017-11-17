@@ -5,7 +5,9 @@ import { AgmCoreModule } from '@agm/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule, MatCardModule, MatInputModule, MatProgressSpinnerModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
-import { ApiService } from './api.service';
+import { ApiService } from './api/api.service';
+import { SearchResultListComponent } from './map/search-result-list/search-result-list.component';
+import { GoogleService } from './card/google.service';
 
 @NgModule({
     imports: [
@@ -18,8 +20,8 @@ import { ApiService } from './api.service';
         MatProgressSpinnerModule,
         HttpClientModule
     ],
-    providers: [ApiService],
-    declarations: [MapComponent]
+    providers: [ApiService, GoogleService],
+    declarations: [MapComponent, SearchResultListComponent]
 })
 export class MapModule {
 }
