@@ -20,9 +20,11 @@
     </div>
 
     <div [fxFlex]="getWidth()">
-        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (centerChange)="mapCenterChanged($event)">
+        <agm-map [latitude]="getLatitude()" [longitude]="getLongitude()" [zoom]="getZoom()"
+                 (centerChange)="mapCenterChanged($event)">
             <!--<agm-marker *ngIf="currPos.latitude!==undefined" [latitude]="currPos.latitude" [longitude]="currPos.longitude"></agm-marker>-->
-            <agm-marker *ngFor="let point of points" [latitude]="point.latitude" [longitude]="point.longitude"></agm-marker>
+            <agm-marker *ngFor="let point of points" [latitude]="point.latitude"
+                        [longitude]="point.longitude"></agm-marker>
         </agm-map>
     </div>
 </div>

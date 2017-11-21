@@ -26,8 +26,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     public searchElementRef: ElementRef;
 
 
-    constructor(private apiService: ApiService,
-                private cardService: GoogleService) {
+    constructor(public apiService: ApiService,
+                public cardService: GoogleService) {
 
     }
 
@@ -44,6 +44,21 @@ export class MapComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
     }
 
+
+    getLatitude() {
+        return this.cardService.getLatitude();
+    }
+
+
+    getLongitude() {
+        return this.cardService.getLongitude();
+    }
+
+
+    getZoom() {
+        return this.cardService.getZoom();
+    }
+
     searchApi() {
         this.showSpinner = true;
         this.apiService.getPointsOfInterest(this.latitude, this.longitude).subscribe((points: PointsData) => {
@@ -54,8 +69,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 
     mapCenterChanged($event: Event) {
-        console.dir($event);
         this.showSpinner = false;
+        console.dir($event);
     }
 
 
@@ -63,9 +78,9 @@ export class MapComponent implements OnInit, AfterViewInit {
         return this.points.length > 0 ? 70 : 100;
     }
 
+
     setCurrentPosition() {
         this.showSpinner = true;
-
         this.cardService.setCurrentPosition().then((position: any) => {
             this.showSpinner = false;
             this.latitude = position.latitude;

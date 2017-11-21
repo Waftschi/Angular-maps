@@ -1,14 +1,14 @@
 import { ElementRef, Injectable, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { Card } from './card';
 
 @Injectable()
-export class GoogleService {
+export class GoogleService implements Card {
     private latitude: number;
     private longitude: number;
     private zoom: number;
-    public coordinates: Observable<any>;
+
 
     constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
     }
@@ -26,6 +26,9 @@ export class GoogleService {
                         // get the place result
                         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
+                        console.log('------------');
+                        console.dir(place);
+
                         // verify result
                         if (place.geometry === undefined || place.geometry === null) {
                             return;
@@ -34,7 +37,10 @@ export class GoogleService {
                         // set latitude, longitude and zoom
                         this.latitude = place.geometry.location.lat();
                         this.longitude = place.geometry.location.lng();
-                        // this.setCoordinates();
+
+                        // console.dir(this.latitude);
+                        // console.dir(this.longitude);
+
                         this.zoom = 12;
                         resolve({latitude: this.latitude, longitude: this.longitude, zoom: this.zoom});
                     });
@@ -43,6 +49,18 @@ export class GoogleService {
         });
     }
 
+    getLatitude() {
+        return this.latitude;
+    }
+
+
+    getLongitude() {
+        return this.longitude;
+    }
+
+    getZoom() {
+        return this.zoom;
+    }
 
     setCurrentPosition() {
         return new Promise(resolve => {
@@ -57,8 +75,6 @@ export class GoogleService {
             }
         });
     }
-
-
 
 
 }
