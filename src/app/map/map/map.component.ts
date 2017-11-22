@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import {} from 'googlemaps';
 import { ApiService } from '../api/api.service';
-import { GoogleService } from '../card/google.service';
+import { CardService } from '../card/card.service';
 
 
 export interface PointsData {
@@ -15,29 +14,27 @@ export interface PointsData {
     encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit, AfterViewInit {
-    latitude = 48.124392799999995;
-    longitude = 11.606305399999997;
     points: any[] = [];
     showSpinner: boolean;
-    currPos: any;
-    zoom = 12;
+    private wasChanged: boolean;
 
     @ViewChild('search')
     public searchElementRef: ElementRef;
 
 
     constructor(public apiService: ApiService,
-                public cardService: GoogleService) {
+                public cardService: CardService) {
 
     }
 
     ngOnInit() {
-        // this.pointsElementRef
+        if (!this.wasChanged) {
+            this.cardService.setCurrentPosition();
+        }
+
         this.cardService.init(this.searchElementRef).then((position: any) => {
+            this.wasChanged = true;
             this.showSpinner = false;
-            this.latitude = position.latitude;
-            this.longitude = position.longitude;
-            this.zoom = position.zoom;
         });
     }
 
@@ -61,10 +58,11 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     searchApi() {
         this.showSpinner = true;
-        this.apiService.getPointsOfInterest(this.latitude, this.longitude).subscribe((points: PointsData) => {
-            this.showSpinner = false;
-            this.points = points.data;
-        });
+        this.apiService.getPointsOfInterest(this.cardService.getLatitude(), this.cardService.getLongitude())
+            .subscribe((points: PointsData) => {
+                this.showSpinner = false;
+                this.points = points.data;
+            });
     }
 
 
@@ -83,10 +81,6 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.showSpinner = true;
         this.cardService.setCurrentPosition().then((position: any) => {
             this.showSpinner = false;
-            this.latitude = position.latitude;
-            this.longitude = position.longitude;
-            this.zoom = position.zoom;
-            this.currPos = position;
         });
     }
 }

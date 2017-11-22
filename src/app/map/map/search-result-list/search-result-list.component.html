@@ -1,2 +1,8 @@
-<mat-card *ngFor="let point of points | slice:start :end;  let i=index">{{point.name}}</mat-card>
-<button mat-button (click)="back()">Back</button> {{end / 10}}<button mat-button (click)="next()">Next</button>
+<mat-card>
+    <button mat-button (click)="sort('distance-asc')">Distance ASC</button>
+    <button mat-button (click)="sort('name-asc')">Name</button>
+</mat-card>
+<mat-card *ngFor="let point of visiblePoints | slice:start :end;  let i=index">{{point.name}} {{point.extension.distance}}
+</mat-card>
+<button mat-button (click)="back()">Back</button> {{end / 10}}
+<button mat-button (click)="next()">Next</button>

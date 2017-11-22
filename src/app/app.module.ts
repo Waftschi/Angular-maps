@@ -16,9 +16,10 @@ import { MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgmCoreModule } from '@agm/core';
 import { HomeModule } from './home/home.module';
+import { MapHomeComponent } from './map/map-home/map-home.component';
 
 const appRoutes: Routes = [
-    {path: 'map', component: MapComponent},
+    {path: 'map', component: MapHomeComponent},
     {path: 'home', component: HomeComponent},
     {
         path: '',

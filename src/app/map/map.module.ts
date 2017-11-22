@@ -10,6 +10,8 @@ import { SearchResultListComponent } from './map/search-result-list/search-resul
 import { GoogleService } from './card/google.service';
 import { ApiGermanService } from './api/api-german.service';
 import { ApiAustriaService } from './api/api-austria.service';
+import { CardService } from './card/card.service';
+import { MapHomeComponent } from './map-home/map-home.component';
 
 @NgModule({
     imports: [
@@ -23,10 +25,10 @@ import { ApiAustriaService } from './api/api-austria.service';
         HttpClientModule
     ],
     providers: [
-        {provide: ApiService, useClass: ApiAustriaService},
-        GoogleService
+        {provide: ApiService, useClass: ApiGermanService},
+        {provide: CardService, useClass: GoogleService},
     ],
-    declarations: [MapComponent, SearchResultListComponent]
+    declarations: [MapComponent, SearchResultListComponent, MapHomeComponent]
 })
 export class MapModule {
 }

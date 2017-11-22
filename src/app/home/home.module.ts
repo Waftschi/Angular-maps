@@ -10,7 +10,7 @@ import { HomeDirective } from './home.directive';
     ],
     declarations: [
         HomeComponent,
-        // HomeTplComponent,
+        HomeTplComponent,
         HomeDirective,
     ]
 })

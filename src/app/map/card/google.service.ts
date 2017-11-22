@@ -1,10 +1,9 @@
 import { ElementRef, Injectable, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import 'rxjs/add/observable/of';
-import { Card } from './card';
 
 @Injectable()
-export class GoogleService implements Card {
+export class GoogleService {
     private latitude: number;
     private longitude: number;
     private zoom: number;
