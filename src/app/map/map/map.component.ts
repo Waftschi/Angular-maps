@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { CardService } from '../card/card.service';
+import { Point } from './search-result-list/point';
+import { isUndefined } from 'util';
 
 
 export interface PointsData {
@@ -49,6 +51,14 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     getLongitude() {
         return this.cardService.getLongitude();
+    }
+
+    getIconUrl(point) {
+        if (isUndefined(point) || isUndefined(point.clicked)) {
+            return 'http://maps.google.com/mapfiles/ms/icons/blue.png';
+        }
+
+        return point.clicked === false ? 'http://maps.google.com/mapfiles/ms/icons/blue.png' : 'http://maps.google.com/mapfiles/ms/icons/red.png';
     }
 
 

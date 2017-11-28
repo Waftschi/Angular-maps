@@ -32,6 +32,16 @@ export class SearchResultListComponent implements OnInit, OnChanges {
         this.visiblePoints = this.points.slice(0);
     }
 
+    clickPoint(point: Point) {
+        console.dir(point);
+
+        if (!point.clicked) {
+            point.clicked = true;
+        } else {
+            point.clicked = !point.clicked;
+        }
+    }
+
     sort(type) {
         switch (type) {
             case 'distance-asc':

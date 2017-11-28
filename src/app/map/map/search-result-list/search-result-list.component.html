@@ -2,7 +2,8 @@
     <button mat-button (click)="sort('distance-asc')">Distance ASC</button>
     <button mat-button (click)="sort('name-asc')">Name</button>
 </mat-card>
-<mat-card *ngFor="let point of visiblePoints | slice:start :end;  let i=index">{{point.name}} {{point.extension.distance}}
+<mat-card (click)="clickPoint(point)" style="cursor:pointer" [ngStyle]="{'background-color: #ccc': point.clicked}" *ngFor="let point of visiblePoints | slice:start :end;  let i=index">{{point.name}} {{point.extension.distance}}
+{{ point.clicked | json }}
 </mat-card>
 <button mat-button (click)="back()">Back</button> {{end / 10}}
 <button mat-button (click)="next()">Next</button>

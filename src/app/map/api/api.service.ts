@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export abstract class ApiService {
@@ -12,7 +13,7 @@ export abstract class ApiService {
     constructor(private http: HttpClient) {
     }
 
-    getPointsOfInterest(latitude?, longitude?) {
+    getPointsOfInterest(latitude?, longitude?): Observable<any> {
         throw new Error('Abstract Method');
     }
 

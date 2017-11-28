@@ -13,7 +13,7 @@ export abstract class CardService implements Card {
     constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
     }
 
-    init(searchElement: ElementRef) {
+    init(searchElement: ElementRef): Promise<any> {
         throw new Error('Abstract Method');
     }
 
@@ -30,7 +30,7 @@ export abstract class CardService implements Card {
         return this.zoom;
     }
 
-    setCurrentPosition() {
+    setCurrentPosition(): Promise<any> {
         throw new Error('Abstract Method');
     }
 

@@ -46,10 +46,7 @@ const appRoutes: Routes = [
         MatInputModule,
         FlexLayoutModule,
         HomeModule,
-        AgmCoreModule.forRoot({
-            libraries: ['places'], // Import for the places library
-            apiKey: 'AIzaSyCS4pfD5doD_DqpMJSjncypHP2c4ramEX8'
-        }),
+
         RouterModule.forRoot(
             appRoutes,
             {enableTracing: false} // <-- debugging purposes only
